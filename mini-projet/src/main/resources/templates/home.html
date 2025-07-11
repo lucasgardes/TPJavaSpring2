@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Accueil</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f4f4f4;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 18px;
+        }
+        .nav-links {
+            margin-top: 20px;
+        }
+        .nav-links a {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+        .nav-links a:hover {
+            background-color: #0056b3;
+        }
+        .logout {
+            background-color: #dc3545;
+        }
+        .logout:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Bienvenue sur l'application de gestion</h1>
+    <p>
+        Bonjour,
+        <strong th:text="${#authentication != null ? #authentication.name : 'Utilisateur inconnu'}">Utilisateur inconnu</strong>
+    </p>
+    <p>Vous êtes connecté.</p>
+
+    <div class="nav-links">
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <a href="/admin-dashboard">🔧 Tableau de bord Admin</a>
+        </sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_PROFESSEUR')">
+            <a href="/prof-dashboard">🎓 Espace Professeur</a>
+        </sec:authorize>
+        <a href="/declaration">Déclaration</a>
+        <a href="/users/users/list">👤 Voir la liste des utilisateurs</a>
+        <a href="/logout" class="logout">❌ Se déconnecter</a>
+    </div>
+</div>
+
+</body>
+</html>

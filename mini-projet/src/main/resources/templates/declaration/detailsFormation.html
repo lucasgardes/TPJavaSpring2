@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Détails de la Formation</title>
+</head>
+<body>
+    <div th:replace="fragments/menu :: menu"></div>
+    <h2>Détails de la Formation</h2>
+    <form th:action="${flowExecutionUrl}" method="post" th:object="${detailsFormation}">
+        <label>Date:
+            <input type="date" th:field="*{date}" required />
+        </label><br>
+
+        <label>Lieu:
+            <input type="text" th:field="*{lieu}" required />
+        </label><br>
+
+        <label>Intitulé:
+            <input type="text" th:field="*{intitule}" required />
+        </label><br>
+
+        <button type="submit" name="_eventId_next">Suivant</button>
+        <button type="submit" name="_eventId_previous">Précédent</button>
+    </form>
+</body>
+</html>

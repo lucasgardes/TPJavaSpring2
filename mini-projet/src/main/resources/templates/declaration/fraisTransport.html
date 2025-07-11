@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Frais de Transport</title>
+</head>
+<body>
+    <div th:replace="fragments/menu :: menu"></div>
+    <h2>Frais de Transport</h2>
+
+    <form th:action="${flowExecutionUrl}" method="post" th:object="${fraisTransport}">
+        <label>
+            <input type="radio" th:field="*{transport}" value="train"> Train
+        </label><br>
+        <label>
+            <input type="radio" th:field="*{transport}" value="avion"> Avion
+        </label><br>
+        <label>
+            <input type="radio" th:field="*{transport}" value="voiture"> Mon propre véhicule
+        </label><br>
+
+        <button type="submit" name="_eventId_next">Suivant</button>
+        <button type="submit" name="_eventId_previous">Précédent</button>
+    </form>
+</body>
+</html>

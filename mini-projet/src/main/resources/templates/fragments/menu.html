@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+  <div th:fragment="menu">
+    <nav>
+      <ul>
+        <li>
+          <form th:action="@{/declarationFrais}" method="post">
+            <input type="hidden" name="execution" th:value="${flowExecutionKey}" />
+            <button type="submit" name="_eventId_toDetailsFormation">Détails Formation</button>
+          </form>
+        </li>
+        <li>
+          <form th:action="@{/declarationFrais}" method="post">
+            <input type="hidden" name="execution" th:value="${flowExecutionKey}" />
+            <button type="submit" name="_eventId_toFraisTransport">Frais Transport</button>
+          </form>
+        </li>
+        <li>
+          <form th:action="@{/declarationFrais}" method="post">
+            <input type="hidden" name="execution" th:value="${flowExecutionKey}" />
+            <button type="submit" name="_eventId_toFraisHebergement">Frais Hébergement</button>
+          </form>
+        </li>
+        <li>
+          <form th:action="@{/declarationFrais}" method="post">
+            <input type="hidden" name="execution" th:value="${flowExecutionKey}" />
+            <button type="submit" name="_eventId_toFraisRestauration">Frais Restauration</button>
+          </form>
+        </li>
+        <li>
+          <form th:action="@{/declarationFrais}" method="post">
+            <input type="hidden" name="execution" th:value="${flowExecutionKey}" />
+            <button type="submit" name="_eventId_toCoordonneesBancaires">Coordonnées Bancaires</button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</body>
+</html>

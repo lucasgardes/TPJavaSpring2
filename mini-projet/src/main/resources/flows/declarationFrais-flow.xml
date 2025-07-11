@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <!-- Déclaration des variables -->
+    <var name="detailsFormation" class="om.esi2.mini_projet.model.DetailsFormation"/>
+    <var name="fraisTransport" class="om.esi2.mini_projet.model.FraisTransport"/>
+    <var name="fraisHebergement" class="om.esi2.mini_projet.model.FraisHebergement"/>
+    <var name="fraisRestauration" class="om.esi2.mini_projet.model.FraisRestauration"/>
+    <var name="coordonneesBancaires" class="om.esi2.mini_projet.model.CoordonneesBancaires"/>
+
+    <!-- Étape initiale -->
+    <view-state id="preparerDeclaration" view="declaration/preparer" redirect="true">
+        <transition on="next" to="detailsFormation"/>
+    </view-state>
+
+    <view-state id="detailsFormation" view="declaration/detailsFormation" model="detailsFormation" redirect="true">
+        <transition on="next" to="fraisTransport"/>
+        <transition on="previous" to="preparerDeclaration"/>
+        <!-- Menu navigation -->
+        <transition on="toDetailsFormation" to="detailsFormation"/>
+        <transition on="toFraisTransport" to="fraisTransport"/>
+        <transition on="toFraisHebergement" to="fraisHebergement"/>
+        <transition on="toFraisRestauration" to="fraisRestauration"/>
+        <transition on="toCoordonneesBancaires" to="coordonneesBancaires"/>
+        <transition on="toRecapitulatif" to="recapitulatifAvantTransmission"/>
+    </view-state>
+
+    <view-state id="fraisTransport" view="declaration/fraisTransport" model="fraisTransport" redirect="true">
+        <transition on="next" to="fraisHebergement"/>
+        <transition on="previous" to="detailsFormation"/>
+        <!-- Menu navigation -->
+        <transition on="toDetailsFormation" to="detailsFormation"/>
+        <transition on="toFraisTransport" to="fraisTransport"/>
+        <transition on="toFraisHebergement" to="fraisHebergement"/>
+        <transition on="toFraisRestauration" to="fraisRestauration"/>
+        <transition on="toCoordonneesBancaires" to="coordonneesBancaires"/>
+        <transition on="toRecapitulatif" to="recapitulatifAvantTransmission"/>
+    </view-state>
+
+    <view-state id="fraisHebergement" view="declaration/fraisHebergement" model="fraisHebergement" redirect="true">
+        <transition on="next" to="fraisRestauration"/>
+        <transition on="previous" to="fraisTransport"/>
+        <!-- Menu navigation -->
+        <transition on="toDetailsFormation" to="detailsFormation"/>
+        <transition on="toFraisTransport" to="fraisTransport"/>
+        <transition on="toFraisHebergement" to="fraisHebergement"/>
+        <transition on="toFraisRestauration" to="fraisRestauration"/>
+        <transition on="toCoordonneesBancaires" to="coordonneesBancaires"/>
+        <transition on="toRecapitulatif" to="recapitulatifAvantTransmission"/>
+    </view-state>
+
+    <view-state id="fraisRestauration" view="declaration/fraisRestauration" model="fraisRestauration" redirect="true">
+        <transition on="next" to="coordonneesBancaires"/>
+        <transition on="previous" to="fraisHebergement"/>
+        <!-- Menu navigation -->
+        <transition on="toDetailsFormation" to="detailsFormation"/>
+        <transition on="toFraisTransport" to="fraisTransport"/>
+        <transition on="toFraisHebergement" to="fraisHebergement"/>
+        <transition on="toFraisRestauration" to="fraisRestauration"/>
+        <transition on="toCoordonneesBancaires" to="coordonneesBancaires"/>
+        <transition on="toRecapitulatif" to="recapitulatifAvantTransmission"/>
+    </view-state>
+
+    <view-state id="coordonneesBancaires" view="declaration/coordonneesBancaires" model="coordonneesBancaires" redirect="true">
+        <transition on="next" to="recapitulatifAvantTransmission"/>
+        <transition on="previous" to="fraisRestauration"/>
+        <!-- Menu navigation -->
+        <transition on="toDetailsFormation" to="detailsFormation"/>
+        <transition on="toFraisTransport" to="fraisTransport"/>
+        <transition on="toFraisHebergement" to="fraisHebergement"/>
+        <transition on="toFraisRestauration" to="fraisRestauration"/>
+        <transition on="toCoordonneesBancaires" to="coordonneesBancaires"/>
+        <transition on="toRecapitulatif" to="recapitulatifAvantTransmission"/>
+    </view-state>
+
+    <view-state id="recapitulatifAvantTransmission" view="declaration/recapitulatifAvantTransmission" redirect="true">
+        <transition on="next" to="deposerDeclaration"/>
+        <transition on="previous" to="coordonneesBancaires"/>
+        <!-- Menu navigation -->
+        <transition on="toDetailsFormation" to="detailsFormation"/>
+        <transition on="toFraisTransport" to="fraisTransport"/>
+        <transition on="toFraisHebergement" to="fraisHebergement"/>
+        <transition on="toFraisRestauration" to="fraisRestauration"/>
+        <transition on="toCoordonneesBancaires" to="coordonneesBancaires"/>
+        <transition on="toRecapitulatif" to="recapitulatifAvantTransmission"/>
+    </view-state>
+
+    <view-state id="deposerDeclaration" view="declaration/deposer" redirect="true">
+        <transition on="confirmer" to="enregistrerDeclaration"/>
+        <!-- Menu navigation -->
+        <transition on="toDetailsFormation" to="detailsFormation"/>
+        <transition on="toFraisTransport" to="fraisTransport"/>
+        <transition on="toFraisHebergement" to="fraisHebergement"/>
+        <transition on="toFraisRestauration" to="fraisRestauration"/>
+        <transition on="toCoordonneesBancaires" to="coordonneesBancaires"/>
+        <transition on="toRecapitulatif" to="recapitulatifAvantTransmission"/>
+    </view-state>
+
+    <action-state id="enregistrerDeclaration">
+        <evaluate expression="declarationService.enregistrerDeclaration(detailsFormation, fraisTransport, fraisHebergement, fraisRestauration, coordonneesBancaires)" />
+        <transition to="recapitulatifApresTransmission"/>
+    </action-state>
+
+    <view-state id="recapitulatifApresTransmission" view="declaration/recapitulatifApresTransmission" redirect="true">
+        <transition on="finish" to="preparerDeclaration"/>
+    </view-state>
+
+</flow>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Récapitulatif</title>
+</head>
+<body>
+    <div th:replace="fragments/menu :: menu"></div>
+    <h2>Récapitulatif Avant Transmission</h2>
+    <p>Vérifiez vos informations avant de soumettre votre déclaration.</p>
+
+    <div th:object="${detailsFormation}">
+        <p><strong>Date :</strong> <span th:text="*{date}">[Date]</span></p>
+        <p><strong>Lieu :</strong> <span th:text="*{lieu}">[Lieu]</span></p>
+        <p><strong>Intitulé :</strong> <span th:text="*{intitule}">[Intitulé]</span></p>
+    </div>
+
+    <div th:object="${fraisTransport}">
+        <p><strong>Transport :</strong> <span th:text="*{transport}">[Transport]</span></p>
+    </div>
+
+    <div th:object="${fraisHebergement}">
+        <p><strong>Hébergement :</strong> <span th:text="*{hebergement}">[Hébergement]</span></p>
+    </div>
+
+    <div th:object="${fraisRestauration}">
+        <p><strong>Restauration :</strong> <span th:text="*{restauration}">[Restauration]</span></p>
+    </div>
+
+    <div th:object="${coordonneesBancaires}">
+        <p><strong>IBAN :</strong> <span th:text="*{iban}">[IBAN]</span></p>
+        <p><strong>BIC :</strong> <span th:text="*{bic}">[BIC]</span></p>
+    </div>
+
+    <form th:action="${flowExecutionUrl}" method="post">
+        <button type="submit" name="_eventId_next">Soumettre</button>
+        <button type="submit" name="_eventId_previous">Précédent</button>
+    </form>
+</body>
+</html>

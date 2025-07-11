@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+      http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+
+    <!-- Définition de l'état initial -->
+    <start-state id="preparer">
+        <transition on="suivant" to="detailsFormation"/>
+    </start-state>
+
+    <!-- État : Détails de la Formation -->
+    <view-state id="detailsFormation" view="detailsFormation">
+        <transition on="suivant" to="fraisTransport"/>
+        <transition on="retour" to="preparer"/>
+    </view-state>
+
+    <!-- État : Frais de Transport -->
+    <view-state id="fraisTransport" view="fraisTransport">
+        <transition on="suivant" to="fraisHebergement"/>
+        <transition on="retour" to="detailsFormation"/>
+    </view-state>
+
+    <!-- État : Frais d'Hébergement -->
+    <view-state id="fraisHebergement" view="fraisHebergement">
+        <transition on="suivant" to="fraisRestauration"/>
+        <transition on="retour" to="fraisTransport"/>
+    </view-state>
+
+    <!-- État : Frais de Restauration -->
+    <view-state id="fraisRestauration" view="fraisRestauration">
+        <transition on="suivant" to="coordonneesBancaires"/>
+        <transition on="retour" to="fraisHebergement"/>
+    </view-state>
+
+    <!-- État : Coordonnées Bancaires -->
+    <view-state id="coordonneesBancaires" view="coordonneesBancaires">
+        <transition on="suivant" to="recapitulatifAvantTransmission"/>
+        <transition on="retour" to="fraisRestauration"/>
+    </view-state>
+
+    <!-- État : Récapitulatif Avant Transmission -->
+    <view-state id="recapitulatifAvantTransmission" view="recapitulatifAvantTransmission">
+        <transition on="soumettre" to="deposerDeclaration"/>
+        <transition on="retour" to="coordonneesBancaires"/>
+    </view-state>
+
+    <!-- État : Récapitulatif après transmission -->
+    <view-state id="recapitulatifApresTransmission" view="recapitulatifApresTransmission">
+        <transition on="terminer" to="preparer"/>
+    </view-state>
+
+    <view-state id="deposerDeclaration" view="declaration/deposer">
+        <transition on="confirmer" to="enregistrerDeclaration"/>
+    </view-state>
+
+    <action-state id="enregistrerDeclaration">
+        <evaluate expression="declarationFraisService.saveDeclaration(detailsFormation, fraisTransport, fraisHebergement, fraisRestauration, coordonneesBancaires)" />
+        <transition to="recapitulatifApresTransmission"/>
+    </action-state>
+</flow>

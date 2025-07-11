@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Confirmation de Dépôt</title>
+</head>
+<body>
+    <div th:replace="fragments/menu :: menu"></div>
+    <h2>Confirmer le dépôt de la déclaration</h2>
+    <p>Êtes-vous sûr(e) de vouloir déposer cette déclaration ? Cette action est définitive.</p>
+
+    <form th:action="${flowExecutionUrl}" method="post">
+        <button type="submit" name="_eventId_confirmer">Confirmer</button>
+    </form>
+</body>
+</html>

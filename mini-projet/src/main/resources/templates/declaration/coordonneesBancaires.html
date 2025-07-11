@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Coordonnées Bancaires</title>
+</head>
+<body>
+    <div th:replace="fragments/menu :: menu"></div>
+    <h2>Coordonnées Bancaires</h2>
+    <form th:action="${flowExecutionUrl}" method="post" th:object="${coordonneesBancaires}">
+        <label>IBAN: <input type="text" th:field="*{iban}" required></label><br>
+        <label>BIC: <input type="text" th:field="*{bic}" required></label><br>
+        <button type="submit" name="_eventId_next">Suivant</button>
+        <button type="submit" name="_eventId_previous">Précédent</button>
+    </form>
+</body>
+</html>

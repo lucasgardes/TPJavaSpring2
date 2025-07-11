@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Frais d'Hébergement</title>
+</head>
+<body>
+    <div th:replace="fragments/menu :: menu"></div>
+    <h2>Frais d'Hébergement</h2>
+    <form th:action="${flowExecutionUrl}" method="post" th:object="${fraisHebergement}">
+        <label>
+            <input type="radio" th:field="*{hebergement}" value="gratuit"> Hébergement gratuit
+        </label><br>
+        <label>
+            <input type="radio" th:field="*{hebergement}" value="payant"> Hébergement payant
+        </label><br>
+
+        <button type="submit" name="_eventId_next">Suivant</button>
+        <button type="submit" name="_eventId_previous">Précédent</button>
+    </form>
+</body>
+</html>

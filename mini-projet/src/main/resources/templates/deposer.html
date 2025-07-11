@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Soumission</title>
+</head>
+<body>
+    <h2>Soumettre la déclaration</h2>
+    <p>Êtes-vous sûr de vouloir soumettre cette déclaration ?</p>
+
+    <form th:action="${flowExecutionUrl}" method="post">
+        <button type="submit" name="_eventId_next">Oui, soumettre</button>
+        <button type="submit" name="_eventId_previous">Retour</button>
+    </form>
+</body>
+</html>
